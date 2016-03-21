@@ -1,0 +1,13 @@
+.top{
+  margin-top:70px;
+}
+td,th{
+    text-align: center;
+}
+.right{
+    float:right;
+    margin-right:50px;
+}
+.middle{
+   text-align:center;
+}
