@@ -5,17 +5,19 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
 <link href="css/index.css" rel="stylesheet">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
 
 <script type="text/javascript">
 	function createTable(servers, clomnNum) {
 		var table = $("<table border = \"1\"  class=\"table table-striped table-bordered\">");
 		table.appendTo(($("#myTable")));
 		for (var i = 0; i < servers.length; i++) {
+
 			var tr = $("<tr></tr>");
 			tr.appendTo(table);
 			for (var j = 0; j < clomnNum; j++) {
-				var td = $("<td>" + servers[i] +"</td>");
+				var td = $("<td>" + servers[i] + "</td>");
 				td.appendTo(tr);
 			}
 		}
@@ -23,28 +25,22 @@
 	}
 
 	$(document).ready(function() {
-		 BootstrapDialog.show({
-	            message: $('<div></div>').load('remote.html')
-	        });
-	        
+
 		$('#search').click(function() {
 			$.ajax({
 				type : "post",
 				url : "test.html",
 				data : {
-					key :$('#key').val(),
+					key : $('#key').val(),
 				},
 				datatype : "json",
 				success : function(data) {
-					 if(data.errorCode!=0){
-						 $(".alert").alert()
-					 }
-					 else if(data.result.servers.length<=0){
+					console.log("data" + data);
+					if (data.servers.length <= 0) {
 						console.log("no");
 						$('#myTable').text("no server for this key");
-					}
-					else{
-						createTable(data.result.servers,1);
+					} else {
+						createTable(data.servers, 1);
 					}
 				}
 			}).done(function() {
@@ -72,10 +68,7 @@
 		<div id='search'>
 			<input type='button' value='search resouce' class='button right'>
 		</div>
-		<div id='myTable' class='top'>
-		</div>
+		<div id='myTable' class='top'></div>
 	</div>
-
-    
 </body>
 </html>

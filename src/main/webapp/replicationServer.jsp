@@ -11,42 +11,25 @@
 <link href="css/index.css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-2.2.0.js"></script>
     <script type="text/javascript">
-
-        $(document).ready(function(){
-           $('#search').click(function(){
-        	   window.location.href='resourcesManagement.jsp'; 
-           }) ;
-           $('#look').click(function(){
-        	   window.location.href='index.jsp'; 
-           }) ;
-           
-        });
     </script>
 </head>
 <body  style="background:url('img/background.jpg')no-repeat; background-size:100%">
 
-	<h2 align="center" class='top'>service status:started</h2>
-
+	<h2 align="center" class='top'>server:${server}</h2>
+	<h3 align="center" class='top'>replication servers</h3>
 	<div class="container">
          <div id='search'> <input type='button' value='search resouce' class='right'></div>
-         	<div id='look'> <input type='button' value='server load' class='right'></div>
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered top">
 				<thead>
 					<tr>
-						<th>No.</th>
-						<th>Ip</th>
-						<th>Status</th>
-						<th>operate</th>
+						<th>ip</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="entry" items="${message}">
 						<tr>
-							<td>${entry.id}</td>
 							<td>${entry.ip}</td>
-							<td>${entry.status}</td>
-							<td><a href='${entry.ip}-replicationServer.html'>look replication servers</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

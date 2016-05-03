@@ -1,7 +1,13 @@
 package org.lab.onem2m.web.DO;
 
-public class StatisticsDO {
+import java.io.Serializable;
 
+public class StatisticsDO implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -744874904202620279L;
     private String label;
     private Long y;
 
