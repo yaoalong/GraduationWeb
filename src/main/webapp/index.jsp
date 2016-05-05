@@ -13,7 +13,6 @@ $(document).ready(function() {
 		url : "serverPacketStatistics.html",
 		datatype : "json",
 		success : function(data) {
-			alert("ss");
 			 if(data.errorCode!=0){
 				 $(".alert").alert()
 			 }
@@ -24,7 +23,6 @@ $(document).ready(function() {
 					},
 					data: [              
 					{
-						// Change type to "doughnut", "line", "splineArea", etc.
 						type: "column",
 						dataPoints:data
 					}

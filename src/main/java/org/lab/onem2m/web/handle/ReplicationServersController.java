@@ -4,8 +4,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 import lab.mars.ds.web.network.constant.WebOperateType;
-import lab.mars.ds.web.network.protocol.M2mWebPacket;
-import lab.mars.ds.web.network.protocol.M2mWebReplicationServersResponse;
+import lab.mars.ds.web.protocol.M2mWebPacket;
+import lab.mars.ds.web.protocol.M2mWebReplicationServersResponse;
 
 import org.lab.mars.onem2m.proto.M2mCreateRequest;
 import org.lab.mars.onem2m.proto.M2mCreateResponse;
@@ -39,7 +39,7 @@ public class ReplicationServersController {
         M2mRequestHeader m2mRequestHeader = new M2mRequestHeader();
         m2mRequestHeader.setType(WebOperateType.lookReplicationServers
                 .getCode());
-        m2mRequestHeader.setKey(server);
+        m2mRequestHeader.setKey(server.replace("~", ":"));
         M2mCreateRequest m2mCreateRequest = new M2mCreateRequest();
         M2mCreateResponse m2mCreateResponse = new M2mCreateResponse();
         M2mReplyHeader m2mReplyHeader = new M2mReplyHeader();
@@ -57,10 +57,9 @@ public class ReplicationServersController {
             }
 
         }
-        System.out.println("成功");
         M2mWebReplicationServersResponse m2mWebReplicationServersResponse = (M2mWebReplicationServersResponse) m2mWebPacket
                 .getResponse();
-        model.addAttribute("server", server);
+        model.addAttribute("server", server.replace("~", ":"));
 
         model.addAttribute("message",
                 m2mWebReplicationServersResponse.getReplicationServers());

@@ -5,9 +5,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 import lab.mars.ds.web.network.constant.WebOperateType;
-import lab.mars.ds.web.network.protocol.M2mServerLoadDO;
-import lab.mars.ds.web.network.protocol.M2mWebPacket;
-import lab.mars.ds.web.network.protocol.M2mWebServerLoadResponse;
+import lab.mars.ds.web.protocol.M2mServerLoadDO;
+import lab.mars.ds.web.protocol.M2mWebPacket;
+import lab.mars.ds.web.protocol.M2mWebServerLoadResponse;
 
 import org.lab.mars.onem2m.proto.M2mCreateRequest;
 import org.lab.mars.onem2m.proto.M2mCreateResponse;
@@ -27,7 +27,7 @@ public class ServerPacketStatisticsController {
 
     static {
         try {
-            webTcpClient.connectionOne("192.168.10.131", 22222);
+            webTcpClient.connectionOne("192.168.10.131", 11111);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

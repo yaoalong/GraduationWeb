@@ -9,18 +9,20 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <link href="css/index.css" rel="stylesheet">
+<link href="css/normalize.css" rel="stylesheet">
+<link href="css/skeleton.css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-2.2.0.js"></script>
     <script type="text/javascript">
     </script>
 </head>
-<body  style="background:url('img/background.jpg')no-repeat; background-size:100%">
+<body>
 
 	<h2 align="center" class='top'>server:${server}</h2>
 	<h3 align="center" class='top'>replication servers</h3>
 	<div class="container">
-         <div id='search'> <input type='button' value='search resouce' class='right'></div>
-		<div class="table-responsive">
-			<table class="table table-striped table-bordered top">
+         <div id='search'> <input type='button' value='search resouce' class='right button-primary '></div>
+		<div class="u-full-width">
+			<table class="u-full-width">
 				<thead>
 					<tr>
 						<th>ip</th>

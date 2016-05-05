@@ -5,10 +5,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 import lab.mars.ds.web.network.constant.WebOperateType;
-import lab.mars.ds.web.network.protocol.M2mServerStatusDO;
-import lab.mars.ds.web.network.protocol.M2mServerStatusDOs;
-import lab.mars.ds.web.network.protocol.M2mWebPacket;
-import lab.mars.ds.web.network.protocol.M2mWebServerStatusResponse;
+import lab.mars.ds.web.protocol.M2mServerStatusDOs;
+import lab.mars.ds.web.protocol.M2mWebPacket;
+import lab.mars.ds.web.protocol.M2mWebServerStatusResponse;
 
 import org.lab.mars.onem2m.jute.M2mBinaryInputArchive;
 import org.lab.mars.onem2m.proto.M2mCreateRequest;
@@ -29,7 +28,7 @@ public class HelloWorldController {
     public static volatile M2mWebPacket m2mWebPacket;
     static {
         try {
-            webTcpClient.connectionOne("192.168.10.131", 22222);
+            webTcpClient.connectionOne("192.168.10.131", 33333);
         } catch (Exception ex) {
 
         }
@@ -66,13 +65,11 @@ public class HelloWorldController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (M2mServerStatusDO index : m2mServerStatusDOs
-                .getM2mServerStatusDOs()) {
-            System.out.println(index.getIp());
-        }
+
         model.addAttribute("message",
                 m2mServerStatusDOs.getM2mServerStatusDOs());
         m2mWebPacket = null;
         return "hello";
     }
+
 }

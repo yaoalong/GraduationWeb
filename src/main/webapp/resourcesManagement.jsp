@@ -5,19 +5,19 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
 <link href="css/index.css" rel="stylesheet">
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.9/js/bootstrap-dialog.min.js"></script>
+<link href="css/normalize.css" rel="stylesheet">
+<link href="css/skeleton.css" rel="stylesheet">
 
 <script type="text/javascript">
 	function createTable(servers, clomnNum) {
-		var table = $("<table border = \"1\"  class=\"table table-striped table-bordered\">");
+		var table = $("<table   class=\"u-full-width\">");
 		table.appendTo(($("#myTable")));
 		for (var i = 0; i < servers.length; i++) {
 
 			var tr = $("<tr></tr>");
 			tr.appendTo(table);
 			for (var j = 0; j < clomnNum; j++) {
-				var td = $("<td>" + servers[i] + "</td>");
+				var td = $("<td align=\"center\">" + servers[i] + "</td>");
 				td.appendTo(tr);
 			}
 		}
@@ -53,7 +53,7 @@
 </head>
 </head>
 <body
-	style="background: url('img/background.jpg') no-repeat; background-size: 100%">
+	 style="bgcolor:rgb(125,130,129)">
 
 	<div style="padding: 20px; width: 700px; margin: 200px auto;"
 		class='top'>
@@ -66,7 +66,7 @@
 			<br>
 		</form>
 		<div id='search'>
-			<input type='button' value='search resouce' class='button right'>
+			<input type='button' value='search resouce' class='button right button-primary'>
 		</div>
 		<div id='myTable' class='top'></div>
 	</div>

@@ -3,7 +3,7 @@ package org.lab.mars.onem2m.web.handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lab.mars.ds.web.network.constant.WebOperateType;
-import lab.mars.ds.web.network.protocol.M2mWebPacket;
+import lab.mars.ds.web.protocol.M2mWebPacket;
 
 import org.lab.onem2m.web.handle.HelloWorldController;
 import org.lab.onem2m.web.handle.ReplicationServersController;
@@ -15,6 +15,7 @@ public class WebClientChannelHandler extends
     /**
      * Creates a client-side handler.
      */
+
     public WebClientChannelHandler() {
 
     }
@@ -25,6 +26,7 @@ public class WebClientChannelHandler extends
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) {
+        System.out.println("hah");
         M2mWebPacket m2mWebPacket = (M2mWebPacket) msg;
         if (m2mWebPacket.getM2mRequestHeader().getType() == WebOperateType.retriveLocalKey
                 .getCode()) {
@@ -32,7 +34,7 @@ public class WebClientChannelHandler extends
             RetrieveKeyController.reentrantLock.lock();
             RetrieveKeyController.condition.signalAll();
             RetrieveKeyController.reentrantLock.unlock();
-        } else if (m2mWebPacket.getM2mRequestHeader().getType() == WebOperateType.lookRemoteServerLoad
+        } else if (m2mWebPacket.getM2mRequestHeader().getType() == WebOperateType.lookServerLoad
                 .getCode()) {
 
             ServerPacketStatisticsController.m2mWebPacket = m2mWebPacket;
