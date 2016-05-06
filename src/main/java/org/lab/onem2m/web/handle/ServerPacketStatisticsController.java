@@ -36,7 +36,6 @@ public class ServerPacketStatisticsController {
 
     @RequestMapping(value = "/serverPacketStatistics.html")
     public @ResponseBody List<M2mServerLoadDO> packetStatistics() {
-
         M2mRequestHeader m2mRequestHeader = new M2mRequestHeader();
         m2mRequestHeader.setType(WebOperateType.lookRemoteServerLoad.getCode());
         M2mCreateRequest m2mCreateRequest = new M2mCreateRequest();

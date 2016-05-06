@@ -22,6 +22,12 @@ public class WebTcpClient extends TcpClientNetwork {
                 reentrantLock.unlock();
             }
         }
+        if (!channel.isActive()) {
+            System.out.println("端口已关闭");
+        } else {
+            System.out.println("HH");
+        }
         channel.writeAndFlush(msg);
+        System.out.println("发送成功");
     }
 }
