@@ -14,7 +14,7 @@ import org.lab.mars.onem2m.proto.M2mCreateRequest;
 import org.lab.mars.onem2m.proto.M2mCreateResponse;
 import org.lab.mars.onem2m.proto.M2mReplyHeader;
 import org.lab.mars.onem2m.proto.M2mRequestHeader;
-import org.lab.mars.onem2m.web.WebTcpClient;
+import org.lab.mars.web.util.WebUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,19 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class RetrieveKeyController {
-    static WebTcpClient webTcpClient = new WebTcpClient();
     public static volatile M2mWebPacket m2mWebPacket;
     public static ReentrantLock reentrantLock = new ReentrantLock();
     public static Condition condition = reentrantLock.newCondition();
-
-    static {
-        try {
-            webTcpClient.connectionOne("192.168.10.131", 11111);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
 
     @RequestMapping(value = "/test.html")
     public @ResponseBody M2mWebRetriveKeyResponse helloWorld(String key) {
@@ -51,7 +41,7 @@ public class RetrieveKeyController {
         M2mReplyHeader m2mReplyHeader = new M2mReplyHeader();
         M2mWebPacket m2mPacket = new M2mWebPacket(m2mRequestHeader,
                 m2mReplyHeader, m2mCreateRequest, m2mCreateResponse);
-        webTcpClient.write(m2mPacket);
+        WebUtil.webTcpClient.write(m2mPacket);
         System.out.println("发送");
         while (m2mWebPacket == null) {
             reentrantLock.lock();

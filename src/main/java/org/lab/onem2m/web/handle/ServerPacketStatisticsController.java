@@ -13,26 +13,16 @@ import org.lab.mars.onem2m.proto.M2mCreateRequest;
 import org.lab.mars.onem2m.proto.M2mCreateResponse;
 import org.lab.mars.onem2m.proto.M2mReplyHeader;
 import org.lab.mars.onem2m.proto.M2mRequestHeader;
-import org.lab.mars.onem2m.web.WebTcpClient;
+import org.lab.mars.web.util.WebUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ServerPacketStatisticsController {
-    static WebTcpClient webTcpClient = new WebTcpClient();
     public static volatile M2mWebPacket m2mWebPacket;
     public static ReentrantLock reentrantLock = new ReentrantLock();
     public static Condition condition = reentrantLock.newCondition();
-
-    static {
-        try {
-            webTcpClient.connectionOne("192.168.10.131", 11111);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
 
     @RequestMapping(value = "/serverPacketStatistics.html")
     public @ResponseBody List<M2mServerLoadDO> packetStatistics() {
@@ -43,7 +33,7 @@ public class ServerPacketStatisticsController {
         M2mReplyHeader m2mReplyHeader = new M2mReplyHeader();
         M2mWebPacket m2mPacket = new M2mWebPacket(m2mRequestHeader,
                 m2mReplyHeader, m2mCreateRequest, m2mCreateResponse);
-        webTcpClient.write(m2mPacket);
+        WebUtil.webTcpClient.write(m2mPacket);
         System.out.println("发送");
         while (m2mWebPacket == null) {
             reentrantLock.lock();
@@ -56,15 +46,10 @@ public class ServerPacketStatisticsController {
             }
 
         }
-        System.out.println("接收到了");
         M2mWebServerLoadResponse m2mWebServerLoadResponse = (M2mWebServerLoadResponse) m2mWebPacket
                 .getResponse();
         System.out.println(m2mWebServerLoadResponse.getM2mServerLoadDOs()
                 .size());
-        m2mWebServerLoadResponse.getM2mServerLoadDOs().forEach(t -> {
-            System.out.println("ip:" + t.getLabel());
-            System.out.println("count:" + t.getY());
-        });
         m2mWebPacket = null;
         return m2mWebServerLoadResponse.getM2mServerLoadDOs();
     }
