@@ -13,7 +13,6 @@
 		var table = $("<table   class=\"u-full-width\">");
 		table.appendTo(($("#myTable")));
 		for (var i = 0; i < servers.length; i++) {
-
 			var tr = $("<tr></tr>");
 			tr.appendTo(table);
 			for (var j = 0; j < clomnNum; j++) {

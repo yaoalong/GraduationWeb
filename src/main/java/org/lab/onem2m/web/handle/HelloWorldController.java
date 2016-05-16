@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 import lab.mars.ds.web.network.constant.WebOperateType;
+import lab.mars.ds.web.protocol.M2mServerStatusDO;
 import lab.mars.ds.web.protocol.M2mServerStatusDOs;
 import lab.mars.ds.web.protocol.M2mWebPacket;
 import lab.mars.ds.web.protocol.M2mWebServerStatusResponse;
@@ -36,7 +37,7 @@ public class HelloWorldController {
         M2mReplyHeader m2mReplyHeader = new M2mReplyHeader();
         M2mWebPacket m2mPacket = new M2mWebPacket(m2mRequestHeader,
                 m2mReplyHeader, m2mCreateRequest, m2mCreateResponse);
-        WebUtil.webTcpClient.write(m2mPacket);
+        WebUtil.send(m2mPacket);
         while (m2mWebPacket == null) {
             try {
                 Thread.sleep(100);
@@ -59,6 +60,12 @@ public class HelloWorldController {
 
         model.addAttribute("message",
                 m2mServerStatusDOs.getM2mServerStatusDOs());
+        long i = 0;
+        for (M2mServerStatusDO m2mServerLoadDO : m2mServerStatusDOs
+                .getM2mServerStatusDOs()) {
+            m2mServerLoadDO.setId(i++);
+            System.out.println(m2mServerLoadDO.getStatus());
+        }
         m2mWebPacket = null;
         return "hello";
     }

@@ -35,7 +35,7 @@ public class ReplicationServersController {
         M2mReplyHeader m2mReplyHeader = new M2mReplyHeader();
         M2mWebPacket m2mPacket = new M2mWebPacket(m2mRequestHeader,
                 m2mReplyHeader, m2mCreateRequest, m2mCreateResponse);
-        WebUtil.webTcpClient.write(m2mPacket);
+        WebUtil.send(m2mPacket);
         while (m2mWebPacket == null) {
             reentrantLock.lock();
             try {

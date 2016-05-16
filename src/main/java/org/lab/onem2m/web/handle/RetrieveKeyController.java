@@ -41,7 +41,7 @@ public class RetrieveKeyController {
         M2mReplyHeader m2mReplyHeader = new M2mReplyHeader();
         M2mWebPacket m2mPacket = new M2mWebPacket(m2mRequestHeader,
                 m2mReplyHeader, m2mCreateRequest, m2mCreateResponse);
-        WebUtil.webTcpClient.write(m2mPacket);
+        WebUtil.send(m2mPacket);
         System.out.println("发送");
         while (m2mWebPacket == null) {
             reentrantLock.lock();

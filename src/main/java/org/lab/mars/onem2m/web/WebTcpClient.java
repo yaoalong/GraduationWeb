@@ -11,7 +11,7 @@ public class WebTcpClient extends TcpClientNetwork {
     }
 
     @Override
-    public void write(Object msg) {
+    public void write(Object msg) throws Exception {
         while (channel == null) {
             try {
                 reentrantLock.lock();
@@ -23,7 +23,8 @@ public class WebTcpClient extends TcpClientNetwork {
             }
         }
         if (!channel.isActive()) {
-            System.out.println("端口已关闭");
+            throw new Exception("端口已经关闭");
+
         } else {
             System.out.println("HH");
         }
