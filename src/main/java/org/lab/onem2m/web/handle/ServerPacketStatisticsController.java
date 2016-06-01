@@ -1,5 +1,6 @@
 package org.lab.onem2m.web.handle;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -51,6 +52,9 @@ public class ServerPacketStatisticsController {
         System.out.println(m2mWebServerLoadResponse.getM2mServerLoadDOs()
                 .size());
         m2mWebPacket = null;
+        System.out.println("开始");
+        Collections.sort(m2mWebServerLoadResponse.getM2mServerLoadDOs());
+        System.out.println("结束");
         return m2mWebServerLoadResponse.getM2mServerLoadDOs();
     }
 }

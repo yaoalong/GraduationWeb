@@ -26,7 +26,7 @@ public class WebClientChannelHandler extends
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("hah");
+
         M2mWebPacket m2mWebPacket = (M2mWebPacket) msg;
         if (m2mWebPacket.getM2mRequestHeader().getType() == WebOperateType.retriveLocalKey
                 .getCode()) {

@@ -25,8 +25,6 @@ public class WebTcpClient extends TcpClientNetwork {
         if (!channel.isActive()) {
             throw new Exception("端口已经关闭");
 
-        } else {
-            System.out.println("HH");
         }
         channel.writeAndFlush(msg);
         System.out.println("发送成功");
