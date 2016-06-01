@@ -11,9 +11,6 @@ import lab.mars.ds.web.protocol.M2mWebPacket;
 import lab.mars.ds.web.protocol.M2mWebServerStatusResponse;
 
 import org.lab.mars.onem2m.jute.M2mBinaryInputArchive;
-import org.lab.mars.onem2m.proto.M2mCreateRequest;
-import org.lab.mars.onem2m.proto.M2mCreateResponse;
-import org.lab.mars.onem2m.proto.M2mReplyHeader;
 import org.lab.mars.onem2m.proto.M2mRequestHeader;
 import org.lab.mars.web.util.WebUtil;
 import org.springframework.stereotype.Controller;
@@ -32,17 +29,16 @@ public class HelloWorldController {
         System.out.println("wo ");
         M2mRequestHeader m2mRequestHeader = new M2mRequestHeader();
         m2mRequestHeader.setType(WebOperateType.getStatus.getCode());
-        M2mCreateRequest m2mCreateRequest = new M2mCreateRequest();
-        M2mCreateResponse m2mCreateResponse = new M2mCreateResponse();
-        M2mReplyHeader m2mReplyHeader = new M2mReplyHeader();
-        M2mWebPacket m2mPacket = new M2mWebPacket(m2mRequestHeader,
-                m2mReplyHeader, m2mCreateRequest, m2mCreateResponse);
+
+        M2mWebPacket m2mPacket = new M2mWebPacket(m2mRequestHeader, null, null,
+                null);
         WebUtil.send(m2mPacket);
         while (m2mWebPacket == null) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                return "error";
             }
         }
         M2mWebServerStatusResponse webGetDataResponse = (M2mWebServerStatusResponse) m2mWebPacket
@@ -56,15 +52,14 @@ public class HelloWorldController {
             m2mServerStatusDOs.deserialize(inboa, "data");
         } catch (IOException e) {
             e.printStackTrace();
+            return "error";
         }
-
         model.addAttribute("message",
                 m2mServerStatusDOs.getM2mServerStatusDOs());
         long i = 0;
         for (M2mServerStatusDO m2mServerLoadDO : m2mServerStatusDOs
                 .getM2mServerStatusDOs()) {
             m2mServerLoadDO.setId(i++);
-            System.out.println(m2mServerLoadDO.getStatus());
         }
         m2mWebPacket = null;
         return "hello";

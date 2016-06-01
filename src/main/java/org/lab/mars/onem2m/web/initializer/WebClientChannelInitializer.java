@@ -12,10 +12,6 @@ import org.lab.mars.onem2m.web.handler.WebClientChannelHandler;
  */
 public class WebClientChannelInitializer extends TcpChannelInitializer {
 
-    public WebClientChannelInitializer() {
-
-    }
-
     @Override
     public void init(ChannelPipeline ch) {
         ch.addLast(new WebClientChannelHandler());

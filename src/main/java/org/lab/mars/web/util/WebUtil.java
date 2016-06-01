@@ -25,13 +25,13 @@ public class WebUtil {
         create();
     }
 
-    public static void create() {
+    private static void create() {
         webTcpClient = new WebTcpClient();
         webTcpClient.connectionOne(ipAndPortDOList.get(currentIndex).getIp(),
                 ipAndPortDOList.get(currentIndex).getPort());
     }
 
-    public static void write(M2mWebPacket m2mPacket) {
+    private static void write(M2mWebPacket m2mPacket) {
         while (true) {
             try {
                 webTcpClient.write(m2mPacket);
@@ -43,9 +43,7 @@ public class WebUtil {
                 }
                 currentIndex++;
                 create();
-
             }
-
         }
     }
 
