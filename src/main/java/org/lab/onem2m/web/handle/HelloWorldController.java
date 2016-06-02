@@ -1,16 +1,12 @@
 package org.lab.onem2m.web.handle;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
+import java.util.List;
 
 import lab.mars.ds.web.network.constant.WebOperateType;
 import lab.mars.ds.web.protocol.M2mServerStatusDO;
-import lab.mars.ds.web.protocol.M2mServerStatusDOs;
 import lab.mars.ds.web.protocol.M2mWebPacket;
 import lab.mars.ds.web.protocol.M2mWebServerStatusResponse;
 
-import org.lab.mars.onem2m.jute.M2mBinaryInputArchive;
 import org.lab.mars.onem2m.proto.M2mRequestHeader;
 import org.lab.mars.web.util.WebUtil;
 import org.springframework.stereotype.Controller;
@@ -43,24 +39,16 @@ public class HelloWorldController {
         }
         M2mWebServerStatusResponse webGetDataResponse = (M2mWebServerStatusResponse) m2mWebPacket
                 .getResponse();
-        M2mServerStatusDOs m2mServerStatusDOs = new M2mServerStatusDOs();
-        ByteArrayInputStream inbaos = new ByteArrayInputStream(
-                webGetDataResponse.getData());
-        DataInputStream dis = new DataInputStream(inbaos);
-        M2mBinaryInputArchive inboa = M2mBinaryInputArchive.getArchive(dis);
-        try {
-            m2mServerStatusDOs.deserialize(inboa, "data");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "error";
-        }
+
+        List<M2mServerStatusDO> m2mServerStatusDOs = webGetDataResponse
+                .getM2mServerStatusDOList();
         model.addAttribute("message",
-                m2mServerStatusDOs.getM2mServerStatusDOs());
+                webGetDataResponse.getM2mServerStatusDOList());
         long i = 0;
-        for (M2mServerStatusDO m2mServerLoadDO : m2mServerStatusDOs
-                .getM2mServerStatusDOs()) {
+        for (M2mServerStatusDO m2mServerLoadDO : m2mServerStatusDOs) {
             m2mServerLoadDO.setId(i++);
         }
+        model.addAttribute("message", m2mServerStatusDOs);
         m2mWebPacket = null;
         return "hello";
     }

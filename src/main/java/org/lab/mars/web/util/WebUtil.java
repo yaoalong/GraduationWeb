@@ -1,5 +1,6 @@
 package org.lab.mars.web.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,12 @@ public class WebUtil {
 
     private static void create() {
         webTcpClient = new WebTcpClient();
-        webTcpClient.connectionOne(ipAndPortDOList.get(currentIndex).getIp(),
-                ipAndPortDOList.get(currentIndex).getPort());
+        try {
+            webTcpClient.connectionOne(ipAndPortDOList.get(currentIndex)
+                    .getIp(), ipAndPortDOList.get(currentIndex).getPort());
+        } catch (IOException e) {
+            create();
+        }
     }
 
     private static void write(M2mWebPacket m2mPacket) {
