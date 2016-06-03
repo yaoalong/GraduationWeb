@@ -5,7 +5,12 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/bootstrap.min.js"></script>
 <link href="css/index.css" rel="stylesheet">
-<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="js/canvasjs.min.js"></script>
+  <style>
+        .canvasjs-chart-credit {
+            display: none;
+        }
+        </style>
 <script type="text/javascript">
 $(document).ready(function() {
 	$.ajax({
