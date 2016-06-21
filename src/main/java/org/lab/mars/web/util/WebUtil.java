@@ -16,7 +16,7 @@ public class WebUtil {
     private static int currentIndex;
 
     static {
-        String server = "192.168.10.131:22222,192.168.10.131:11111,192.168.10.131:33333";
+        String server = "192.168.10.131:33333,192.168.10.131:11111,192.168.10.131:33333";
         String[] servers = server.split(",");
         for (String index : servers) {
             String[] serverAndPort = index.split(":");
